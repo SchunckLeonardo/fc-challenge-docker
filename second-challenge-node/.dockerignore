@@ -1,0 +1,4 @@
+mysql
+docker-compose.yaml
+Dockerfile
+.dockerignore
