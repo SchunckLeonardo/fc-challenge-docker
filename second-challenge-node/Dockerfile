@@ -1,11 +1,16 @@
-FROM node:22-bookworm
+FROM node:22
 
-WORKDIR /usr/src/app
+RUN npm i -g pnpm
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN pnpm i
 
 COPY . .
 
 ENV DOCKERIZE_VERSION v0.8.0
-
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
@@ -13,4 +18,4 @@ RUN apt-get update \
 
 EXPOSE 8080
 
-ENTRYPOINT ["node", "index.js"]
+CMD ["node", "index.js"]
