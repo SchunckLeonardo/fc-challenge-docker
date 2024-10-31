@@ -14,10 +14,12 @@ services:
   
   app:
     container_name: app
-    build: .
-    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 20s node index.js
+    build:
+      context: .
+    entrypoint: dockerize -wait tcp://mysql:3306 -timeout 20s npm run start
     volumes:
-      - ./:/usr/src/app
+      - ./:/app
+      - /app/node_modules
     depends_on:
       - mysql
     networks:

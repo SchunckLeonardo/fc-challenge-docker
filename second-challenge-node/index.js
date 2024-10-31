@@ -16,6 +16,16 @@ const connection = mysql.createConnection(config)
 
 connection.connect()
 
+connection.query(`
+    CREATE TABLE people (
+        id INT AUTO_INCREMENT,
+        name VARCHAR(255),
+
+        PRIMARY KEY (id)
+    )`, (error, _) => {
+        if (error) return
+    })
+
 const queryInsertPeople = `INSERT INTO people (name) VALUES ('Leonardo')`
 connection.query(queryInsertPeople)
 
